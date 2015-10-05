@@ -1,2 +1,2 @@
 # moto-sierra-lab
-I love :coffee: :pizza:
+:computer: :man:
