@@ -1,2 +1,2 @@
 # moto-sierra-lab
-:computer: :man:
+:computer: :man: :pizza: :coffee:
