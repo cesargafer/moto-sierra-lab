@@ -1,4 +1,4 @@
 # moto-sierra-lab
-:computer: :man: :pizza: :coffee:
+:computer::trollface::pizza::coffee::beers::shipit:
 
 Hello I love Git
