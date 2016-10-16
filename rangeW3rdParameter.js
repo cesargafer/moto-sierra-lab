@@ -13,5 +13,5 @@ function range(start, end, step){
  return serie
 }
 
-console.log(range(0, -100, -10));
+console.log(range(0, 100, 10));
 console.log(range(10, -1, -1));
