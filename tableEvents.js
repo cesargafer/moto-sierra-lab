@@ -93,7 +93,13 @@ var JOURNAL = [
   {"events":["cauliflower","peanuts","brushed teeth","weekend"],"squirrel":false}
 ];
 
-
+function phi(table){
+    return ( table[3] * table[0] - table[2] * table [1] ) /
+    Math.sqrt( ( table[2] + table[3] ) *
+            ( table[0] + table[1] ) *
+            ( table[1] + table[3] ) *
+            ( table[0] + table[2] ) );
+}
 
 function hasEvent(event, entry){
  return entry.events.indexOf(event) != -1;
@@ -110,3 +116,38 @@ function tableFor(event, journal){
  return table;
 }
 console.log(tableFor("pizza", JOURNAL));
+
+
+var map = {};
+function storePhi(event, phi){
+ map[event] = phi;
+}
+storePhi("touched tree", -0.081);
+storePhi("pizza", 0.069);
+console.log(map["pizza"]);
+console.log(map);
+
+
+for(event in map)
+ console.log("'The correlation for' " + event + " is " + map[event]);
+
+function gatherCorrelations(JOURNAL){
+ var phis= {};
+ for(var entry = 0; entry < JOURNAL.length; entry++){
+  var events = JOURNAL[entry].events;
+  for(var i = 0; i < events.length; i++){
+   var event = events[i];
+   if(!(event in phis))
+    phis[event] = phi(tableFor(event, JOURNAL)); 
+  }
+ }
+ return phis;
+}
+var correlations = gatherCorrelations(JOURNAL);
+console.log(correlations.pizza);
+
+for(event in correlations){
+ var correlation = correlations[event];
+ if(correlation > 0.1 || correlation < -0.1)
+ console.log(event + ": " + correlations[event]);
+}
