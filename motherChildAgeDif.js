@@ -2,25 +2,14 @@
 var ancestry = require('./ancestry.js');
 var ancestryObj = JSON.parse(ancestry);
 
-function hasKnownMother(arr, transform){
+function hasKnownMother(arr){
  var mappedPerson = []; 
  for(var i = 0; i < arr.length; i++){
-  mappedPerson.push(transform(arr[i]));
+ if(arr[i].mother != null)
+  mappedPerson.push(arr[i]);
  }
- return mapped;
+ return mappedPerson; // 34
 }
-
-console.log(hasKnownMother(ancestryObj));
-
-var withMother = ancestryObj.filter(function(person){
- return person.mother
-});
-
-console.log(hasKnownMother(withMother, function(person){
- return person.name
-}));
-
-
 
 function filter(array, test) {
   var passed = [];
@@ -31,16 +20,23 @@ function filter(array, test) {
   return passed;
 }
 
-
 function average(array) {
   function plus(a, b) { return a + b; }
   return array.reduce(plus) / array.length;
 }
-function age(p) { return p.died - p.born; }
 
-console.log(average(ancestryObj.filter(male).map(age)));
-// → 61.67
-console.log(average(ancestryObj.filter(female).map(age)));
-// → 54.56
-
-
+function mapAgesDif(arr){
+ var mapPersons = [];
+ var mapAges = [];
+ arr.map(function(person){
+  var childBorn = person.born; 
+  var mother = person.mother
+  mapPersons.push(person) 
+   for(i = 0; i < mapAges.length; i++)
+    if(mother = person.name[i])
+     var dif = childBorn - person.born; 
+    mapAges.push(dif);
+ }) 
+ return mapAges
+}
+console.log(mapAgesDif(hasKnownMother(ancestryObj)))
