@@ -1,42 +1,57 @@
-
+'use strict'
 var ancestry = require('./ancestry.js');
 var ancestryObj = JSON.parse(ancestry);
 
-function hasKnownMother(arr){
- var mappedPerson = []; 
- for(var i = 0; i < arr.length; i++){
- if(arr[i].mother != null)
-  mappedPerson.push(arr[i]);
+function showDif(arr_ancestryObj){
+ 
+const registrosDeHijosConMadre = ancestryObj.filter(obj => obj.mother != null);
+ 
+function age(arr){
+  const ages = [];
+   arr.map((record) => {
+    const ageRecord = record.died - record.born;
+   ages.push(ageRecord);
+  })
+ return ages;
+}
+
+function average(array){
+ function plus(a, b) {return a + b }
+ return array.reduce(plus) / array.length
+}
+
+// nombres de madres c/ nulls
+ function mothersName(arr){
+  const names = [];
+   arr.map((record) => {
+   const nameRecord = record.mother;
+   names.push(nameRecord);
+  })
+  return names;
  }
- return mappedPerson; // 34
+
+let nombresDeMadres = mothersName(registrosDeHijosConMadre); // 34 nombres madre 
+const mothersAge = []; // 18 madres con registro de hija tambien 
+
+  nombresDeMadres.forEach(function(elemento, array){
+    for(let i = 0; i < ancestryObj.length; i++){
+  
+     if(elemento == ancestryObj[i].name){
+       // se hace array
+        //mothersAge.push(elemento)
+        const mothersAgeRecord = ancestryObj[i].died - ancestryObj[i].born;
+        mothersAge.push(mothersAgeRecord); 
+       // console.log(mothersAgeRecord)
+      }   
+    }
+  })
+  const promedioEdadGral = average(age(registrosDeHijosConMadre));
+  const promedioEdadMadres = average(mothersAge)
+  const result = promedioEdadGral - promedioEdadMadres;
+  console.log('Promedio de edad de en general: ' + average(age(registrosDeHijosConMadre)))
+  console.log('Promedio de edad de madres: ' + average(mothersAge))
+  console.log(result);
+  return mothersAge
 }
 
-function filter(array, test) {
-  var passed = [];
-  for (var i = 0; i < array.length; i++) {
-    if (test(array[i]))
-      passed.push(array[i]);
-  }
-  return passed;
-}
-
-function average(array) {
-  function plus(a, b) { return a + b; }
-  return array.reduce(plus) / array.length;
-}
-
-function mapAgesDif(arr){
- var mapPersons = [];
- var mapAges = [];
- arr.map(function(person){
-  var childBorn = person.born; 
-  var mother = person.mother
-  mapPersons.push(person) 
-   for(i = 0; i < mapAges.length; i++)
-    if(mother = person.name[i])
-     var dif = childBorn - person.born; 
-    mapAges.push(dif);
- }) 
- return mapAges
-}
-console.log(mapAgesDif(hasKnownMother(ancestryObj)))
+showDif(ancestryObj);
